@@ -1,0 +1,22 @@
+{
+  "bank_statement": {
+    "prompt": "Extract all transactions with the transaction date, description, amount, and balance from the following bank statement:",
+    "fields": ["transaction_date", "description", "amount", "balance"]
+  },
+  "invoice": {
+    "prompt": "Extract the invoice number, vendor name, date issued, and total amount from the following invoice:",
+    "fields": ["invoice_number", "vendor_name", "date_issued", "total_amount"]
+  },
+  "tax_document": {
+    "prompt": "Extract taxpayer name, tax year, total income, and tax paid from the following tax document:",
+    "fields": ["taxpayer_name", "tax_year", "income", "tax_paid"]
+  },
+  "contract": {
+    "prompt": "Summarize the contract by extracting parties involved, start date, end date, and key clauses:",
+    "fields": ["parties_involved", "start_date", "end_date", "key_clauses"]
+  },
+  "financial_report": {
+    "prompt": "Extract the type of report, period covered, total revenue, and net profit from the financial report:",
+    "fields": ["report_type", "period", "total_revenue", "net_profit"]
+  }
+}

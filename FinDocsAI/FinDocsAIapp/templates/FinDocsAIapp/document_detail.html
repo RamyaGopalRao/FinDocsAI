@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #555;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .action-link {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .action-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Document Details</h1>
+
+        <h2>Document Information</h2>
+        <p><strong>Title:</strong> {{ document.title }}</p>
+        <p><strong>Type:</strong> {{ document.document_type|title }}</p>
+        <p><strong>Uploaded At:</strong> {{ document.uploaded_at }}</p>
+
+        <h2>Parsed Data</h2>
+        {% if document.document_type == "bank_statement" %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in parsed_data %}
+                <tr>
+                    <td>{{ transaction.transaction_date }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.balance }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% elif document.document_type == "invoice" %}
+        <p><strong>Invoice Number:</strong> {{ parsed_data.invoice_number }}</p>
+        <p><strong>Vendor Name:</strong> {{ parsed_data.vendor_name }}</p>
+        <p><strong>Date Issued:</strong> {{ parsed_data.date_issued }}</p>
+        <p><strong>Total Amount:</strong> {{ parsed_data.total_amount }}</p>
+        {% elif document.document_type == "tax_document" %}
+        <p><strong>Taxpayer Name:</strong> {{ parsed_data.taxpayer_name }}</p>
+        <p><strong>Tax Year:</strong> {{ parsed_data.tax_year }}</p>
+        <p><strong>Total Income:</strong> {{ parsed_data.income }}</p>
+        <p><strong>Tax Paid:</strong> {{ parsed_data.tax_paid }}</p>
+        {% elif document.document_type == "contract" %}
+        <p><strong>Parties Involved:</strong> {{ parsed_data.parties_involved }}</p>
+        <p><strong>Start Date:</strong> {{ parsed_data.start_date }}</p>
+        <p><strong>End Date:</strong> {{ parsed_data.end_date }}</p>
+        <p><strong>Key Clauses:</strong> {{ parsed_data.key_clauses }}</p>
+        {% elif document.document_type == "financial_report" %}
+        <p><strong>Report Type:</strong> {{ parsed_data.report_type }}</p>
+        <p><strong>Period:</strong> {{ parsed_data.period }}</p>
+        <p><strong>Total Revenue:</strong> {{ parsed_data.total_revenue }}</p>
+        <p><strong>Net Profit:</strong> {{ parsed_data.net_profit }}</p>
+        {% else %}
+        <p>No parsed data available for this document type.</p>
+        {% endif %}
+
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'document_list' %}" class="action-link">Back to Document List</a>
+        </p>
+    </div>
+</body>
+</html>
